@@ -1,29 +1,22 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <h1>Vue Todo with Typescript</h1>
+    <todoinput :item="todoText"></todoinput>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import Todoinput from "./components/Todoinput.vue";
 
 export default Vue.extend({
-  name: "App",a
-  components: {
-    HelloWorld,
-  },
+  components: { Todoinput },
+  data() {
+    return {
+      todoText: ""
+    };
+  }
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>

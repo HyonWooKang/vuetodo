@@ -6,11 +6,3 @@ Vue.config.productionTip = false;
 new Vue({
   render: (h) => h(App),
 }).$mount("#app");
-
-/*
- 할일 관리 앱 (To do / CRUD)
- - 할 일 조회
- - 할 일 추가
- - 할 일 삭제
- - 할 일 수정
-*/
