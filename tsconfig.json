@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": true,
+    "strict": true, // 하단에 여러 옵션이 있는데 그 중 하나가 noImplicityAny
+    //"noImplicitAny": true,  // 변수 타입을 Any로 안 해줘도 됨
     "jsx": "preserve",
     "moduleResolution": "node",
     "skipLibCheck": true,
