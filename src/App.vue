@@ -19,6 +19,7 @@
           :key = "index"
           :index = "index"
           :todoItem = "todoItem"
+          @toggle="toggleTodoItemComplete"
           @remove="removeTodoItem"
           ></TodoListItem>
           <!-- 삭제를 위해 인덱스 index 추가 -->
@@ -49,14 +50,18 @@ const storage = {
     return result;
   }
 }
-
+/* 삭제를 위한 관리 */
+export interface Todo { // interface를 export하여 타입으로 사용
+  title: string;
+  done: boolean;
+}
 
 export default Vue.extend({
   components: { TodoInput, TodoListItem },
   data() {
     return {
       todoText: "",  // 단 방향 바인딩 성공 App.vue -> Todoinput
-      todoItems: [] as any[],  // localStroage에 있는 데이터를 
+      todoItems: [] as Todo[],  // localStroage에 있는 데이터를 
     };
   },
   methods: {
@@ -67,7 +72,11 @@ export default Vue.extend({
     addTodoItem() {
       const value = this.todoText;
       //localStorage.setItem(value, value); // 웹 애플리케이션 로컬스토리지에 저장
-      this.todoItems.push(value); // 배열로 된 값을 집어 넣기
+      const todo: Todo = {
+        title: value,
+        done: false,
+      }
+      this.todoItems.push(todo); // 배열로 된 값을 집어 넣기
       storage.save(this.todoItems);
       this.initTodoText();  // 입력창 초기화
     },
@@ -81,7 +90,15 @@ export default Vue.extend({
       console.log('remove', index);
       this.todoItems.splice(index, 1); // splice로 삭제
       storage.save(this.todoItems);
-    }
+    },
+    toggleTodoItemComplete(todoItem: Todo, index: number) {
+      this.todoItems.splice(index, 1, {
+        // title: todoItem.title,
+        ...todoItem, // 위와 동일한 기능을 함 (여러 개의 값이 있을 때 효과적)
+        done: !todoItem.done,
+      });
+      storage.save(this.todoItems);
+    },
   },
   // 라이프 사이클 이용
   created() {
