@@ -50,6 +50,7 @@ const storage = {
   }
 }
 
+
 export default Vue.extend({
   components: { TodoInput, TodoListItem },
   data() {
