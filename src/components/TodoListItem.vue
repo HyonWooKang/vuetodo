@@ -1,7 +1,12 @@
 <template>
     <li>
-        <span class="list-item"
+        <!-- <span class="list-item"
         :class="todoItem.done ? 'complete' : null"
+        @click="toggleItem"
+        >{{ todoItem.title }}</span> -->
+        <!-- class 변경을 computed()에 넣고 :class로 바인딩 -->
+        <span class="list-item"
+        :class="todoItemClass"
         @click="toggleItem"
         >{{ todoItem.title }}</span>
         <button @click="removeItem">삭제</button>
@@ -28,6 +33,13 @@ export default Vue.extend({
             this.$emit("remove", this.index);
         },
     },
+
+    computed: {
+        todoItemClass(): String | null // 반환 타입을 정의
+        {
+            return this.todoItem.done ? 'complete' : null
+        }
+    }
 })
 </script>
 
