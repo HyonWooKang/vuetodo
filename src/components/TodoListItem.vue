@@ -1,6 +1,9 @@
 <template>
     <li>
-        {{ todoItem }}
+        <span>{{ todoItem }}</span>
+        <button @click="removeItem">삭제</button>
+        <!-- <button @click="$emit('delete')">삭제</button> -->
+        <!-- 버튼으로 emit 보내서 vue에서 지우기 보다는 component 단에서 바로 처리하는 것이 좋음 -->
     </li>
 </template>
 
@@ -10,6 +13,12 @@ import Vue from 'vue';
 export default Vue.extend({
     props: {
         todoItem: String,
+        index: Number,
+    },
+    methods: {
+        removeItem(index: number) {
+            this.$emit("remove", this.index);
+        },
     },
 })
 </script>

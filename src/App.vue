@@ -7,22 +7,21 @@
       <TodoInput 
       :item="todoText"
       @input="updateTodoText"
-      @add="addTodoItem">
-      </TodoInput>
+      @add="addTodoItem"
+      ></TodoInput>
       <!-- 뷰와 컴포넌트 태그에 @input을 이용하여 v-model과 동일한 효과 처리 -->
       <!-- <TodoInput v-model="todoText" @add="addTodoItem"></TodoInput> -->
       <div>
         <ul>
-          <!-- v-for에서 index를 제공함 -->
+          <!-- v-for에서 index를 제공함. 구분하기 위해 key값으로 지정 -->
           <TodoListItem
           v-for="(todoItem, index) in todoItems"
-          :key="index"
+          :key = "index"
+          :index = "index"
           :todoItem = "todoItem"
-          >
-          </TodoListItem>
-          <!-- <li>아이템 1</li>
-          <li>아이템 2</li>
-          <li>아이템 3</li> -->
+          @remove="removeTodoItem"
+          ></TodoListItem>
+          <!-- 삭제를 위해 인덱스 index 추가 -->
         </ul>
       </div>
     </main>
@@ -77,6 +76,11 @@ export default Vue.extend({
     fetchTodoItems() {
       this.todoItems = storage.fetch();
     },
+    removeTodoItem(index: number) {
+      console.log('remove', index);
+      this.todoItems.splice(index, 1); // splice로 삭제
+      storage.save(this.todoItems);
+    }
   },
   // 라이프 사이클 이용
   created() {
